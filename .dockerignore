@@ -1,0 +1,11 @@
+.git
+**/.demo-output
+**/.pytest_cache
+**/__pycache__
+**/.terraform
+**/.venv
+**/*.egg-info
+*.py[cod]
+*.tfstate*
+build
+dist

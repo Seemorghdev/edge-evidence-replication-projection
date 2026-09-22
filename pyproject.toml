@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=82,<83"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edge-evidence-replication-worker"
+version = "0.1.0"
+description = "Bounded deterministic evidence replication worker"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{ name = "Seemorgh" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2,<2",
+  "pytest>=8,<9",
+]
+gcs = [
+  "google-cloud-storage==3.13.0",
+]
+
+[project.scripts]
+replication-worker = "apps.replication_worker.cli:main"
+edge-evidence-replication = "replication.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["apps*", "packages*", "replication*"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers"
+testpaths = ["tests"]
+markers = [
+  "gcs: requires the optional google-cloud-storage dependency",
+]

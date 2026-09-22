@@ -1,0 +1,27 @@
+if: type = api
+dist: noble
+language: python
+python: "3.12"
+
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - sqlite3
+      - unzip
+
+install:
+  - python -m pip install uv
+  - uv python install 3.12 3.13 3.14
+  - npm install -g @devcontainers/cli
+  - curl -fsSLo /tmp/terraform.zip https://releases.hashicorp.com/terraform/1.16.0/terraform_1.16.0_linux_amd64.zip
+  - unzip -q /tmp/terraform.zip -d /tmp/terraform-bin
+  - sudo mv /tmp/terraform-bin/terraform /usr/local/bin/terraform
+
+script:
+  - bash scripts/ci-heavy.sh
+
+notifications:
+  email: false
